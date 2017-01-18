@@ -1,0 +1,7 @@
+
+
+{% for entry in entries %}
+	<li><h2>{{entry.title}}</h2>{{entry.text}}</li>
+{% else %}
+	<li><em>Unbelievable. No entries at all</em></li>
+{% endfor %}
