@@ -1,0 +1,11 @@
+<h1> Hello {{ name }}! </h1>
+
+
+
+<h1>
+{% if name %}
+	Hello , {{ name|capitalize}}
+{% else %}
+	Helo Stranger
+{% endif %}
+</h1>

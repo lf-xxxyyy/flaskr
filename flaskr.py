@@ -1,5 +1,5 @@
 import os
-import sqlite3
+import mysql.connector
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 
 app = Flask(__name__)
@@ -14,9 +14,8 @@ app.config.update(dict(
 
 
 def connect_db() :
-	rv = sqlite3.connect(app.config['DATABASE'])
-	rv.row_factory = sqlite3.Row
-	return rv
+	conn = mysql.connector.connect(user='root', password='123', database='test')
+	return conn
 
 
 def get_db():
@@ -29,15 +28,16 @@ def get_db():
 @app.teardown_appcontext
 def close_db(error):
 	if hasattr(g, 'sqlite_db'):
-		g.sqlite_db.close()
+		g.sqlite_db.cursor().close_db()
 
 
 def init_db():
-	with app.app_context():
-		db = get_db()
-		with app.open_resource('schema.sql', mode='r') as f:
-			db.cursor().executescript(f.read())
-		db.commit()
+	conn = mysql.connector.connect(user='root', password='123', database='test')
+	cursor = conn.cursor()
+	cursor.execute('create table userx (id varchar(20) primary key, name varchar(20))')
+	conn.commit()
+	cursor.close()
+
 
 @app.route('/')
 def show_entries():
