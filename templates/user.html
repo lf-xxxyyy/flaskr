@@ -1,3 +1,5 @@
+{% import 'macro.html' as macro %}
+
 <h1> Hello {{ name }}! </h1>
 
 
@@ -8,4 +10,19 @@
 {% else %}
 	Helo Stranger
 {% endif %}
+</h1>
+
+
+<h2>
+	{% for ele in La %}
+		<li>{{ele}}</li>
+	{% endfor %}
+</h2>
+
+
+
+<h1>
+	{% for ele in La %}
+		{{ macro.render_comment(ele)}}
+	{% endfor %}
 </h1>

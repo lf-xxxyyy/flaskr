@@ -11,5 +11,11 @@ def user(name):
 	return render_template('user.html', name=name)
 
 
+@app.route('/testlist/')
+def renderList():
+	La = [1,2,3,4]
+	return render_template('user.html', La=La)
+
+
 if __name__ == '__main__':
 	app.run()
